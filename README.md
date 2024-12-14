@@ -14,3 +14,5 @@ Thereafter, I started by creating client and account variables (I did not define
 After that, I created an async method for creating an account, login, getting a user, and logout. In it, I used try-catch to throw errors if any occur, and then I used the appropriate method for each action: to create, log in, get users, and log out.
 
 This file is created in such a way that, whenever I want to change the backend service, all I have to do is make changes in this file.
+
+Similarly like auth.js i created conf.js where i defined different methodes like, create, update, delete and get posts, ialso made use of appwrite queries to select posts with only active status, i also creted file servies and methodes to upload, delete and preview files. 
