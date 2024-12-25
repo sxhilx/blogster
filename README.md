@@ -15,4 +15,4 @@ After that, I created an async method for creating an account, login, getting a 
 
 This file is created in such a way that, whenever I want to change the backend service, all I have to do is make changes in this file.
 
-Similarly like auth.js i created conf.js where i defined different methodes like, create, update, delete and get posts, ialso made use of appwrite queries to select posts with only active status, i also creted file servies and methodes to upload, delete and preview files. 
+Similarly like auth.js i created conf.js where i defined different methodes like, create, update, delete and get posts, i also made use of appwrite queries to select posts with only active status, i also creted file servies and methodes to upload, delete and preview files. 
