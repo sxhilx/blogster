@@ -15,4 +15,12 @@ After that, I created an async method for creating an account, login, getting a 
 
 This file is created in such a way that, whenever I want to change the backend service, all I have to do is make changes in this file.
 
-Similarly like auth.js i created conf.js where i defined different methodes like, create, update, delete and get posts, i also made use of appwrite queries to select posts with only active status, i also creted file servies and methodes to upload, delete and preview files. 
+Similarly like auth.js i created conf.js where i defined different methodes like, create, update, delete and get posts, i also made use of appwrite queries to select posts with only active status, i also created file servies and methodes to upload, delete and preview files. 
+
+Today, I started by creating two components: Login and Sign Up. In the Login component, I used the useForm hook from react-hook-form. This hook returns two objects: register and handleSubmit. The handleSubmit function is used in the onSubmit method of the form, which takes another method I created called login.
+
+The login method is an async arrow function where I used the login method from my authService class (powered by Appwrite). It takes the data collected by handleSubmit from all the input fields in the form. After getting the user data, I dispatched it into the store and then used useNavigate to redirect the user to the Home page.
+
+One important syntax I learned for useForm is that in the input fields, I need to spread the register object and provide it with a key along with another object for any validation requirements.
+
+I repeated this exact same process for the Sign Up component.
