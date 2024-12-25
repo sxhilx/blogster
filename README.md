@@ -24,3 +24,5 @@ The login method is an async arrow function where I used the login method from m
 One important syntax I learned for useForm is that in the input fields, I need to spread the register object and provide it with a key along with another object for any validation requirements.
 
 I repeated this exact same process for the Sign Up component.
+
+After that, I created an AuthLayout file to only show the content if the user is logged in. I used the useSelector to check the status and compared it with the authentication state passed in by the user. Based on that, I redirected the user to either the login page or the home page.
