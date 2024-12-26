@@ -23,17 +23,17 @@ const Header = () => {
         },
         {
             name: 'Singup',
-            path: "/singup",
+            path: "/signup",
             active: !authStatus
         },
         {
             name: 'All Post',
-            path: "/allpost",
+            path: "/all-post",
             active: authStatus
         },
         {
             name: 'Add Post',
-            path: "/addpost",
+            path: "/add-post",
             active: authStatus
         }
     ]

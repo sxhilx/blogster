@@ -44,7 +44,7 @@ function Login(){
                 <p className='mt-2 text-center text-base text-black/60'>
                     Don&apos;t have an account?&nbsp;
                     <Link 
-                    to="/singup"
+                    to="/signup"
                     className='font-medium text-primary transition-all duration-200
                      hover:underline'>
                         Sing Up
@@ -65,8 +65,9 @@ function Login(){
                             }
                         })}
                         />
-                        <input 
+                        <Input 
                         label="Password: "
+                        placeholder="Create a Password"
                         type="password"
                         {...register("password", {
                             required: true,

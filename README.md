@@ -34,3 +34,5 @@ Next, I worked on the PostForm file, which handles both creating and updating po
 For file management (upload, delete, and preview), I leveraged the Appwrite services defined in the conf file. Additionally, I used the watch and setValue methods from React Hook Form to dynamically update the slug field. To handle the form's content, I integrated the RTE component I created earlier and used the getValues method to prefill the form if it's being edited.
 
 With these implementations, both the create and update post functionalities are fully covered.
+
+After that, I created a pages folder where I made a file for each page, such as Home, AddPost, EditPost, Login, Signup, AllPost, and Post. Then, in main.jsx, I set up a router and wrapped all my elements in the AuthLayout file, which checks if the user is authenticated. Finally, I wrapped App.jsx in the RouterProvider, and with that, the project is complete. Now, it's time for a whole lot of debugging!

@@ -74,10 +74,12 @@ function Signup(){
                         label="Password: "
                         placeholder="Create a password"
                         type="password"
-                        {...register("password", {
-                            required: true
-                        })}
+                        {...register("password", { 
+                            required: true 
+                        })} 
                         />
+                        {error && <p className='text-red-600 mt-8 text-center'>{error}</p>}
+                        
                         <Button
                         type='submit'
                         className='w-full'>
