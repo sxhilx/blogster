@@ -11,13 +11,15 @@ function PostForm({post}){
         defaultValues: {
             title: post?.title || '',
             slug: post?.slug || '',
-            content: content?.content || '',
+            content: post?.content || '',
             status: post?.status || 'active'
         },
     })
 
     const navigate = useNavigate()
-    const userData = useSelector(state => state.user.userData)
+    const userData = useSelector(state => state.auth.userData)
+    console.log(userData);
+    
 
     const submit = async(data) => {
         if(post){
@@ -28,22 +30,35 @@ function PostForm({post}){
             }
             const dbPost = await appwriteService.updatePost(post.$id, {
                 ...data,
-                featuredImage: file ? file.$id : undefined
+                featuredImage: file ? file.$id : post.featuredImage
             })
 
             if(dbPost){
                 navigate(`/post/${dbPost.$id}`)
             }
         }else {
+            console.log("First");
+            
             const file = await appwriteService.uploadFile(data.image[0]);
+
+            const userId = userData.$id;
+
+            if (!userId) {
+                console.error("User ID is missing");
+                return;
+            }
 
             if(file){
                 const fileId = file.$id
                 data.featuredImage = fileId
+                console.log("File Id set");
+                
                 const dbPost = await appwriteService.createPost({
                     ...data,
-                    userId: userData.$id
+                    userId: userId
                 })
+                console.log("Post created");
+                
                 if(dbPost){
                     navigate(`/post/${dbPost.$id}`)
                 }
@@ -57,8 +72,8 @@ function PostForm({post}){
             return value
             .trim()
             .toLocaleLowerCase()
-            .replace(/^[a-zA-Z\d\s]+/g, '-')
-            .replace(/\s/g, '-')
+            .replace(/\s+/g, '-') 
+            .replace(/[^\w\-]+/g, '');
         }
 
         return ''
@@ -68,18 +83,18 @@ function PostForm({post}){
     useEffect(()=>{
         const subscription = watch((value, {name})=>{
             if(name === 'title'){
-                setValue('slug', slugTransform(value.title, {shouldValidate: true}))
+                setValue('slug', slugTransform(value.title), {shouldValidate: true})
             }
         })
 
         return () => {
-            subscription.unsubscribe()
+            subscription.unsubscribe();
         }
     }, [watch, slugTransform, setValue])
 
     
     return (
-        <form onSubmit={handleSubmit(submit)} className="flex flex-wrap">
+        <form onSubmit={handleSubmit(submit)} className=" flex flex-wrap">
             <div className="w-2/3 px-2">
                 <Input
                     label="Title :"
@@ -93,7 +108,9 @@ function PostForm({post}){
                     className="mb-4"
                     {...register("slug", { required: true })}
                     onInput={(e) => {
-                        setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
+                        setValue("slug", slugTransform(e.currentTarget.value), { 
+                            shouldValidate: true 
+                        });
                     }}
                 />
                 <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />

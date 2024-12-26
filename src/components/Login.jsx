@@ -70,7 +70,7 @@ function Login(){
                         placeholder="Create a Password"
                         type="password"
                         {...register("password", {
-                            required: true,
+                            required: true
                         })}
                         />
 

@@ -14,7 +14,7 @@ export class Service{
         this.bucket = new Storage(this.client)
     }
 
-    async createPost({title, slug, content, feauteredImage, status,userId}){
+    async createPost({title, slug, content, featuredImage, status,userId}){
         try {
             return await this.databases.createDocument(
                 config.appwriteDbId,
@@ -23,12 +23,13 @@ export class Service{
                 {
                    title,
                    content,
-                   feauteredImage,
+                   featuredImage,
                    status,
-                   userId 
+                   userId  
                 }
             )
         } catch (error) {
+            console.error("Error creating post:", error);
             throw error;
         }
     }
@@ -78,7 +79,7 @@ export class Service{
 
     async getPosts(queries = [Query.equal('status', ['active'])]){
         try {
-            return await this.databases.getDocument(
+            return await this.databases.listDocuments(
                 config.appwriteDbId,
                 config.appwriteCollectionId,
                 queries

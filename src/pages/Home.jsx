@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from 'react'
-import { Login as LoginComponent } from '../components'
 import appwriteService from "../appwrite/conf"
 import { Container, PostCard } from '../components'
 
@@ -21,7 +20,7 @@ function Home(){
                     <div className='flex flex-wrap'>
                         <div className='p-2 w-full'>
                             <h1 className='text-2xl ont-bold hover:text-gray-500'>
-                                Login to read Posts
+                                No Post Yet
                             </h1>
                         </div>                         
                     </div>
@@ -37,7 +36,11 @@ function Home(){
                 <div className='flex flex-wrap'>
                     {posts.map((post) => (
                         <div className='p-2 w-1/4' key={post.$id}>
-                            <PostCard {...post}/>
+                            <PostCard
+                                $id={post.$id}
+                                title={post.title}
+                                featuredImage={post.featuredImage} 
+                            />
                         </div>
                     ))}
                 </div>
