@@ -26,3 +26,11 @@ One important syntax I learned for useForm is that in the input fields, I need t
 I repeated this exact same process for the Sign Up component.
 
 After that, I created an AuthLayout file to only show the content if the user is logged in. I used the useSelector to check the status and compared it with the authentication state passed in by the user. Based on that, I redirected the user to either the login page or the home page.
+
+oday, I started by creating an RTE (Rich Text Editor) using TinyMCE. To manage the state between the editor and the form, I utilized the Controller from React Hook Form. The Controller acts as a "bridge" that links non-standard input components (like the TinyMCE editor) to the form, ensuring seamless data management.
+
+Next, I worked on the PostForm file, which handles both creating and updating posts. In this file, I implemented a submit function to determine whether the form is updating an existing post or creating a new one. I used useCallback and useEffect to dynamically transform the title into a slug, ensuring it updates in real-time as the user types.
+
+For file management (upload, delete, and preview), I leveraged the Appwrite services defined in the conf file. Additionally, I used the watch and setValue methods from React Hook Form to dynamically update the slug field. To handle the form's content, I integrated the RTE component I created earlier and used the getValues method to prefill the form if it's being edited.
+
+With these implementations, both the create and update post functionalities are fully covered.
