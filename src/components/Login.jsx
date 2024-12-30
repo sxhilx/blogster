@@ -13,32 +13,37 @@ function Login(){
     const dispatch = useDispatch()
     const {register, handleSubmit} = useForm()
     const [error, setError] = useState("")
+    const [isLoading, setIsLoading] = useState(false)
 
-    const login = async(data) => {
-        setError("")
+    const login = async (data) => {
+        setError("");
+        setIsLoading(true)
         try {
-            const session = await authService.login(data)
-            if(session){
-                const userData = await authService.getCurrentUser()
-                if(userData){
-                    dispatch(authLogin(userData));
-                    navigate("/")
+            const session = await authService.login(data); // Login user
+            if (session) {
+                const userData = await authService.getCurrentUser(); // Fetch user data
+                if (userData) {
+                    dispatch(authLogin({ userData }));
+                    setIsLoading(false); // Pass userData as payload
+                    navigate("/"); // Redirect after login
                 }
             }
+            
         } catch (error) {
-            setError(error.message)
+            setError(error.message);
+            setIsLoading(false); // Display error
         }
-    }
+    };
 
     return(
-        <div className='flex items-center justify-center w-full'>
-            <div className={`mx-auto w-full max-w-lg bg-gray-100 rounded-xl p-10 border border-black/10`}>
+        <div className='flex items-center justify-center w-full m-10'>
+            <div className={`mx-auto w-full max-w-lg bg-white rounded-xl p-10 border border-[#e5e5e5]`}>
                 <div className='mb-2 flex justify-center'>
                     <span className='inline-block w-full max-w-[100px]'>
                         <Logo width='100%'/>
                     </span>
                 </div>
-                <h2 className='text-center text-2xl font-bold leading-tight'>
+                <h2 className='text-center text-2xl font-bold leading-tight text-[#14213d]'>
                     Sign in to your account
                 </h2>
                 <p className='mt-2 text-center text-base text-black/60'>
@@ -67,7 +72,7 @@ function Login(){
                         />
                         <Input 
                         label="Password: "
-                        placeholder="Create a Password"
+                        placeholder="Enter your Password"
                         type="password"
                         {...register("password", {
                             required: true
@@ -76,9 +81,9 @@ function Login(){
 
                         <Button
                         type='submit'
-                        className='w-full'
+                        className='w-full hover:bg-[#14213d] duration-200'
                         >
-                            Sign in
+                            {isLoading ? "Loading..." : "Submit"}
                         </Button>
                     </div>
                 </form>

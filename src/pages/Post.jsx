@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import appwriteService from "../appwrite/conf";
 import { Button, Container } from "../components";
-import HtmlParser from "react-html-parser";
+import parse from "html-react-parser";
 import { useSelector } from "react-redux";
 
 export default function Post() {
@@ -55,12 +55,12 @@ export default function Post() {
                         </div>
                     )}
                 </div>
-                <div className="w-full mb-6">
+                <div className="w-full mb-6 pl-2">
                     <h1 className="text-2xl font-bold">{post.title}</h1>
                 </div>
-                <div className="browser-css">
-                    {HtmlParser(post.content)}
-                </div>
+                <div className="browser-css pl-2">
+                    {parse(post.content)}
+                    </div>
             </Container>
         </div>
     ) : null;

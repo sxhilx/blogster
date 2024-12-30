@@ -39,7 +39,7 @@ function Signup(){
                         <Logo width='100%'/>
                     </span>
                 </div>
-                <h2 className='text-center text-2xl font-bold leading-tight'>
+                <h2 className='text-center text-2xl text-[#14213d] font-bold leading-tight'>
                     Sign up to create account
                 </h2>
                 <p className='mt-2 text-center text-base text-black/60'>
@@ -86,7 +86,7 @@ function Signup(){
                         
                         <Button
                         type='submit'
-                        className='w-full'>
+                        className='w-full hover:bg-[#14213d] duration-200'>
                             Sign Up
                         </Button>
                     </div>

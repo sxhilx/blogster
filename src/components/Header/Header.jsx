@@ -27,8 +27,8 @@ const Header = () => {
             active: !authStatus
         },
         {
-            name: 'All Post',
-            path: "/all-post",
+            name: 'Your Post',
+            path: "/your-post",
             active: authStatus
         },
         {
@@ -39,7 +39,7 @@ const Header = () => {
     ]
 
     return(
-        <header className='py-3 shadow bg-gray-500'>
+        <header className='py-3 shadow bg-[#14213d] text-[#ffffff] font-medium'>
             <Container>
                 <nav className='flex'>
                     <div className='mr-4'>
@@ -52,7 +52,7 @@ const Header = () => {
                             item.active ? (
                                 <li key={item.name}>
                                     <button
-                                    className='inline-block px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+                                    className='inline-block px-6 py-2 duration-200 hover:bg-[#fca311] hover:text-black rounded-full'
                                     onClick={() => navigate(item.path)}
                                     >
                                         {item.name}

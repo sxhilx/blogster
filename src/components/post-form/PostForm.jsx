@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from 'react'
+import React, {useCallback, useEffect, useState} from 'react'
 import { useForm } from 'react-hook-form'
 import {Button, Input, Select, RTE} from '../index'
 import appwriteService from "../../appwrite/conf"
@@ -18,11 +18,12 @@ function PostForm({post}){
 
     const navigate = useNavigate()
     const userData = useSelector(state => state.auth.userData)
-    console.log(userData);
+    const [loading, setLoading] = useState(false)
     
 
     const submit = async(data) => {
         if(post){
+            setLoading(true)
             const file = data.image[0] ? appwriteService.uploadFile(data.image[0]) : null 
 
             if(file){
@@ -32,13 +33,12 @@ function PostForm({post}){
                 ...data,
                 featuredImage: file ? file.$id : post.featuredImage
             })
-
+            setLoading(false)
             if(dbPost){
                 navigate(`/post/${dbPost.$id}`)
             }
         }else {
-            console.log("First");
-            
+            setLoading(true)            
             const file = await appwriteService.uploadFile(data.image[0]);
 
             const userId = userData.$id;
@@ -58,7 +58,7 @@ function PostForm({post}){
                     userId: userId
                 })
                 console.log("Post created");
-                
+                setLoading(true)
                 if(dbPost){
                     navigate(`/post/${dbPost.$id}`)
                 }
@@ -80,17 +80,21 @@ function PostForm({post}){
 
     }, [])
 
-    useEffect(()=>{
-        const subscription = watch((value, {name})=>{
-            if(name === 'title'){
-                setValue('slug', slugTransform(value.title), {shouldValidate: true})
-            }
-        })
-
-        return () => {
-            subscription.unsubscribe();
+    useEffect(() => {
+        if (post && !getValues('slug')) {
+          setValue('slug', slugTransform(post.title), { shouldValidate: true });
         }
-    }, [watch, slugTransform, setValue])
+      
+        const subscription = watch((value, { name }) => {
+          if (name === 'title' && !getValues('slug')) {
+            setValue('slug', slugTransform(value.title), { shouldValidate: true });
+          }
+        });
+      
+        return () => {
+          subscription.unsubscribe();
+        };
+      }, [post, watch, slugTransform, setValue, getValues]);
 
     
     return (
@@ -139,7 +143,7 @@ function PostForm({post}){
                     {...register("status", { required: true })}
                 />
                 <Button type="submit" bgColor={post ? "bg-green-500" : undefined} className="w-full">
-                    {post ? "Update" : "Submit"}
+                    {loading ? "Loading..." : (post ? "Update" : "Submit")}
                 </Button>
             </div>
         </form>

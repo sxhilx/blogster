@@ -1,40 +1,39 @@
 import React, {useEffect, useState} from 'react'
 import appwriteService from "../appwrite/conf"
 import { Container, PostCard } from '../components'
+import { useSelector } from 'react-redux'
 
 function Home(){
+    const userData = useSelector((state) => state.auth.userData);
+    console.log("userData", userData);
+    
     const [posts, setPosts] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
-        appwriteService.getPosts().then((posts) => {
-            if(posts){
-                setPosts(posts.documents)
-            }
-        })
+        const fetchPosts = async () => {
+            setIsLoading(true)
+            await appwriteService.getPosts().then((posts) => {
+                if(posts){
+                    setPosts(posts.documents)
+                }
+            })
+            setIsLoading(false)
+        }
+        fetchPosts()
     }, [])
 
-    if(posts.length === 0){
-        return (
-            <div className='w-full py-8 mt-4 text-center'>
-                <Container>
-                    <div className='flex flex-wrap'>
-                        <div className='p-2 w-full'>
-                            <h1 className='text-2xl ont-bold hover:text-gray-500'>
-                                No Post Yet
-                            </h1>
-                        </div>                         
-                    </div>
-                </Container>
-            </div>
-        )
-    }
 
-    return(
+    return userData ? (
 
         <div className='w-full py-8'>
             <Container>
                 <div className='flex flex-wrap'>
-                    {posts.map((post) => (
+                    {isLoading ? (
+                        <div className="w-full text-center py-8">
+                            <h1 className="text-2xl font-bold">Loading...</h1>
+                        </div>
+                    ) : posts.map((post) => (
                         <div className='p-2 w-1/4' key={post.$id}>
                             <PostCard
                                 $id={post.$id}
@@ -46,6 +45,10 @@ function Home(){
                 </div>
             </Container>
         </div>
+    ) : (
+    <div className="w-full text-center py-8 mt-10">
+        <h1 className="text-2xl font-bold">Login or Signup to read posts</h1>
+    </div>
     )
 }
 
