@@ -33,7 +33,8 @@ function Home(){
                         <div className="w-full text-center py-8">
                             <h1 className="text-2xl font-bold">Loading...</h1>
                         </div>
-                    ) : posts.map((post) => (
+                    ) : posts.length > 0 ? (
+                        posts.map((post) => (
                         <div className='p-2 w-1/4' key={post.$id}>
                             <PostCard
                                 $id={post.$id}
@@ -41,7 +42,12 @@ function Home(){
                                 featuredImage={post.featuredImage} 
                             />
                         </div>
-                    ))}
+                    ))
+                    ) : (
+                        <div className="w-full text-center py-8">
+                            <h1 className="text-2xl font-bold">No Posts Available</h1>
+                        </div>
+                    )}
                 </div>
             </Container>
         </div>
