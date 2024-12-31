@@ -82,19 +82,20 @@ function PostForm({post}){
 
     useEffect(() => {
         if (post && !getValues('slug')) {
-          setValue('slug', slugTransform(post.title), { shouldValidate: true });
+            setValue('slug', slugTransform(post.title || ''), { shouldValidate: true });
         }
-      
+
         const subscription = watch((value, { name }) => {
-          if (name === 'title' && !getValues('slug')) {
-            setValue('slug', slugTransform(value.title), { shouldValidate: true });
-          }
+            if (name === 'title' && value.title) {
+                setValue('slug', slugTransform(value.title), { shouldValidate: true });
+            }
         });
-      
+    
         return () => {
-          subscription.unsubscribe();
+            subscription.unsubscribe();
         };
-      }, [post, watch, slugTransform, setValue, getValues]);
+    }, [post, watch, slugTransform, setValue, getValues]);
+    
 
     
     return (
