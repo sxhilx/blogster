@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 
 function Home(){
     const userData = useSelector((state) => state.auth.userData);
-    console.log("userData", userData);
     
     const [posts, setPosts] = useState([])
     const [isLoading, setIsLoading] = useState(false)
