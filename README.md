@@ -1,6 +1,6 @@
-# React App with Appwrite & TinyMCE
+# Blogster
 
-This is a full-stack React application built using Vite, integrated with Appwrite as the backend service for authentication and data management. The project includes user authentication, post creation and management, file upload and preview, and an integrated Rich Text Editor (TinyMCE) for creating and editing posts.
+Blogster is a full-stack React application built using Vite, integrated with Appwrite as the backend service for authentication and data management. The project includes user authentication, post creation and management, file upload and preview, and an integrated Rich Text Editor (TinyMCE) for creating and editing posts.
 
 ## Features
 
