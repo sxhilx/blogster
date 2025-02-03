@@ -99,8 +99,8 @@ function PostForm({post}){
 
     
     return (
-        <form onSubmit={handleSubmit(submit)} className=" flex flex-wrap">
-            <div className="w-2/3 px-2">
+        <form onSubmit={handleSubmit(submit)} className=" flex flex-col md:flex-row">
+            <div className="h-2/3 md:w-2/3 px-2">
                 <Input
                     label="Title :"
                     placeholder="Title"
@@ -120,7 +120,7 @@ function PostForm({post}){
                 />
                 <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
             </div>
-            <div className="w-1/3 px-2">
+            <div className="h-1/3 md:w-1/3 px-2 pt-4 md:pt-0">
                 <Input
                     label="Featured Image :"
                     type="file"

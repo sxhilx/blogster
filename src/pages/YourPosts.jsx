@@ -26,7 +26,7 @@ function YourPost(){
     return(
         <div className='py-8 w-full'>
             <Container>
-            <div className="flex flex-wrap">
+            <div className="md:grid grid-cols-1 md:grid-cols-3 gap-4">
                     {isLoading ? (
                         <div className="w-full text-center py-8">
                             <h1 className="text-2xl font-bold">Loading...</h1>
@@ -37,7 +37,7 @@ function YourPost(){
                         </div>
                     ) : (
                         userPosts.map((post) => (
-                            <div key={post.$id} className="p-2 w-1/4">
+                            <div key={post.$id} className="p-2">
                                 <PostCard {...post} />
                             </div>
                         ))

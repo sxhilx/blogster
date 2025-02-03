@@ -27,14 +27,14 @@ function Home(){
 
         <div className='w-full py-8'>
             <Container>
-                <div className='flex flex-wrap'>
+                <div className='md:grid grid-cols-1 md:grid-cols-3 gap-4'>
                     {isLoading ? (
                         <div className="w-full text-center py-8">
                             <h1 className="text-2xl font-bold">Loading...</h1>
                         </div>
                     ) : posts.length > 0 ? (
                         posts.map((post) => (
-                        <div className='p-2 w-1/4' key={post.$id}>
+                            <div className='p-2' key={post.$id}>
                             <PostCard
                                 $id={post.$id}
                                 title={post.title}
@@ -51,7 +51,7 @@ function Home(){
             </Container>
         </div>
     ) : (
-    <div className="w-full text-center py-8 mt-10">
+    <div className="w-full text-center py-20 md:py-auto">
         <h1 className="text-2xl font-bold">Login or Signup to read posts</h1>
     </div>
     )
